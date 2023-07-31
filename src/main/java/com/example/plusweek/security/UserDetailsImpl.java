@@ -19,6 +19,10 @@ public class UserDetailsImpl implements UserDetails {
         return this.user;
     }
 
+    public Long getId(){
+        return this.user.getId();
+    }
+
     @Override
     public String getPassword() {
         return user.getPassword();
@@ -31,7 +35,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new ArrayList<>();
+        return null;
     }
 
     @Override

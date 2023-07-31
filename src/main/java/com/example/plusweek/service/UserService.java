@@ -49,22 +49,21 @@ public class UserService {
             throw new IllegalArgumentException("확인 비밀번호가 틀립니다.");
         }
     }
+    public void login(UserLoginRequestDto requestDto) {
+        String username = requestDto.getUsername();
+        String password = requestDto.getPassword();
 
-    public void userLogin(UserLoginRequestDto userRequestDto, HttpServletResponse response) throws UnsupportedEncodingException {
-        String username = userRequestDto.getUsername();
-        String password = userRequestDto.getPassword();
 
+        //사용자 확인
         User user = userRepository.findByUsername(username).orElseThrow(
-                () -> new IllegalArgumentException("닉네임 또는 패스워드를 확인해주세요.")
+                () -> new IllegalArgumentException("등록된 사용자가 없습니다.")
         );
+
+        //비밀번호 확인
         if(!passwordEncoder.matches(password, user.getPassword())) {
-            throw new IllegalArgumentException("닉네임 또는 패스워드를 확인해주세요.");
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
-
-        String token = jwtUtil.createToken(user.getUsername());
-        token = URLEncoder.encode(token, "utf-8");
-        Cookie cookie = new Cookie("Athorization", token);
-
-        response.addCookie(cookie);
     }
+
+
 }
