@@ -1,4 +1,4 @@
-package com.example.plusweek.dto;
+package com.example.plusweek.exception;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;

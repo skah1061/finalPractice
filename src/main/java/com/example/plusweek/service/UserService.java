@@ -28,9 +28,9 @@ public class UserService {
     public void userSignup(UserRequestDto userRequestDto) {
 
         String username = userRequestDto.getUsername();
-        if(userRequestDto.getPassword().contains(username)){
-            throw new IllegalArgumentException("id를 포함할 수 없습니다.");
-        }
+//        if(userRequestDto.getPassword().contains(username)){
+//            throw new IllegalArgumentException("id를 포함할 수 없습니다.");
+//        }
         String password = userRequestDto.getPassword();
         String checkPassword = userRequestDto.getCheckPassword();
 

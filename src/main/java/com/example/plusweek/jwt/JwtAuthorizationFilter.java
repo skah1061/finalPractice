@@ -1,13 +1,14 @@
 package com.example.plusweek.jwt;
 
+import com.example.plusweek.exception.ProblemToken;
 import com.example.plusweek.security.UserDetailsServiceImpl;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -17,17 +18,20 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Locale;
 
 @Slf4j(topic = "JWT 검증 및 인가")
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
+    private final MessageSource messageSource;
     private final UserDetailsServiceImpl userDetailsService;
 
 
-    public JwtAuthorizationFilter(JwtUtil jwtUtil, UserDetailsServiceImpl userDetailsService) {
+    public JwtAuthorizationFilter(JwtUtil jwtUtil, UserDetailsServiceImpl userDetailsService,MessageSource messageSource) {
         this.jwtUtil = jwtUtil;
         this.userDetailsService = userDetailsService;
+        this.messageSource = messageSource;
     }
 
     @Override
@@ -38,8 +42,12 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             token = jwtUtil.substringToken(token);
 
             if (!jwtUtil.validateToken(token)) {
-                log.error("Token Error");
-                return;
+                throw new ProblemToken(messageSource.getMessage(
+                        "problem.token",
+                        null,
+                        "Problem With the CurrentToken",
+                        Locale.getDefault()
+                ));
             }
 
             //Jwt 토큰에서 Member 정보 추출

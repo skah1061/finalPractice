@@ -1,10 +1,9 @@
 package com.example.plusweek.contoller;
 
-import com.example.plusweek.dto.ApiResponseDto;
+import com.example.plusweek.exception.ApiResponseDto;
 import com.example.plusweek.dto.PostRequestDto;
 import com.example.plusweek.dto.PostResponseDto;
 import com.example.plusweek.security.UserDetailsImpl;
-import com.example.plusweek.service.PostServiceImpl;
 import com.example.plusweek.service.inter.PostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

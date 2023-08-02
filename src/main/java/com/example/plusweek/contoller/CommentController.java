@@ -1,8 +1,7 @@
 package com.example.plusweek.contoller;
 
-import com.example.plusweek.dto.ApiResponseDto;
+import com.example.plusweek.exception.ApiResponseDto;
 import com.example.plusweek.dto.CommentRequestDto;
-import com.example.plusweek.dto.PostResponseDto;
 import com.example.plusweek.security.UserDetailsImpl;
 import com.example.plusweek.service.CommentService;
 import org.springframework.http.HttpStatus;
