@@ -51,8 +51,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                 log.error(e.getMessage());
                 return;
             }
+            filterChain.doFilter(request, response);
         }
-        filterChain.doFilter(request, response);
     }
     // 인증 처리
     public void setAuthentication(String username) {

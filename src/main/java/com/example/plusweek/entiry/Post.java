@@ -1,6 +1,7 @@
 package com.example.plusweek.entiry;
 
 import com.example.plusweek.dto.PostRequestDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,8 +22,10 @@ public class Post extends Timestamped{
     String content;
     @Column(name = "username",nullable = false)
     String username;
+
     @OneToMany(mappedBy = "post", cascade = {CascadeType.REMOVE})
     private List<Comment> commentList = new ArrayList<>();
+
     public void setTitle(String title){
         this.title = title;
     }

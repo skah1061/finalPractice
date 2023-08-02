@@ -3,15 +3,11 @@ package com.example.plusweek.contoller;
 import com.example.plusweek.dto.ApiResponseDto;
 import com.example.plusweek.dto.PostRequestDto;
 import com.example.plusweek.dto.PostResponseDto;
-import com.example.plusweek.dto.UserLoginRequestDto;
-import com.example.plusweek.entiry.Post;
 import com.example.plusweek.security.UserDetailsImpl;
-import com.example.plusweek.service.PostService;
-import jakarta.servlet.http.HttpServletResponse;
+import com.example.plusweek.service.PostServiceImpl;
+import com.example.plusweek.service.inter.PostService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,9 +29,10 @@ public class PostController {
     public List<PostResponseDto> showAllPost(){
         return postService.showAllPost();
     }
+
     @GetMapping("/post/{id}")
-    public Post showPost(@PathVariable Long id){
-        return postService.findPost(id);
+    public PostResponseDto showPost(@PathVariable Long id){
+        return postService.getPost(id);
     }
     @Transactional
     @PutMapping("/post/{id}")    //게시글 수정
