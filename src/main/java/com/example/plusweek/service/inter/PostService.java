@@ -17,6 +17,7 @@ public interface PostService{
     List<PostResponseDto> showAllPost();
 
     PostResponseDto getPost(Long id);
+    List<Post> search(String keyword);
 
     Post findPost(Long id);
 

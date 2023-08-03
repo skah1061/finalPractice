@@ -52,6 +52,13 @@ public class PostServiceImpl implements PostService {
 
         return new PostResponseDto(post);
     }
+    /* search */
+    @Transactional
+    @Override
+    public List<Post> search(String keyword) {
+        List<Post> postsList = postRepository.findByTitleContaining(keyword);
+        return postsList;
+    }
     @Override
     public Post findPost(Long id) {
             return postRepository.findById(id).orElseThrow(() ->

@@ -1,19 +1,24 @@
 package com.example.plusweek.contoller;
 
+import com.example.plusweek.entiry.Post;
 import com.example.plusweek.exception.ApiResponseDto;
 import com.example.plusweek.dto.PostRequestDto;
 import com.example.plusweek.dto.PostResponseDto;
 import com.example.plusweek.security.UserDetailsImpl;
 import com.example.plusweek.service.inter.PostService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@Slf4j
 public class PostController {
     PostService postService;
     public PostController(PostService postService){
@@ -32,6 +37,16 @@ public class PostController {
     @GetMapping("/post/{id}")
     public PostResponseDto showPost(@PathVariable Long id){
         return postService.getPost(id);
+    }
+
+    @GetMapping("/post/search")
+    public String search(@RequestParam String keyword) {
+
+        List<Post> searchList = postService.search(keyword);
+
+//        model.addAttribute("searchList", searchList);
+
+        return "search-List";
     }
     @Transactional
     @PutMapping("/post/{id}")    //게시글 수정
